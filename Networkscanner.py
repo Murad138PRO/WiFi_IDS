@@ -25,6 +25,11 @@ def scan_network(interface, ip_range):
         print("Error:", e)
         return []
 
+def save_to_file(filename, devices):
+    with open(filename, "w") as file:
+        for device in devices:
+            file.write(f"{device['ip']} {device['mac']}\n")
+
 if __name__ == "__main__":
     # Replace "eth0" with your network interface (e.g., "en0" on macOS, "eth0" on Linux, or "Wi-Fi" on Windows)
     interface = "WiFi"
@@ -33,6 +38,10 @@ if __name__ == "__main__":
 
     devices = scan_network(interface, ip_range)
 
+    # Save to a file
+    save_to_file("devices.txt", devices)
+
+    # Print the devices on the console for verification
     print("Connected devices:")
     for device in devices:
         print(f"IP: {device['ip']} - MAC: {device['mac']}")
